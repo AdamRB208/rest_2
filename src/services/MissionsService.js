@@ -1,3 +1,4 @@
+import { BadRequest } from "@bcwdev/auth0provider/lib/Errors.js"
 import { dbContext } from "../db/DbContext.js"
 
 class MissionsService {
@@ -23,6 +24,15 @@ class MissionsService {
     return mission
   }
 
+  async updateMission(missionId, updateData) {
+    const missionToUpdate = await dbContext.Missions.findById(missionId).populate('location').populate('rat', '-name -picture')
+    if (missionToUpdate == null) {
+      throw new BadRequest(`Invalid mission Id: ${missionId}`)
+    }
+    missionToUpdate.completed = updateData.completed
+    await missionToUpdate.save()
+    return missionToUpdate
+  }
 }
 
 export const missionsService = new MissionsService()

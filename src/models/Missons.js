@@ -2,8 +2,8 @@ import { Schema } from "mongoose";
 
 export const MissionsSchema = new Schema({
   codename: { type: String, minLength: 1, maxLength: 100, required: true },
-  objective: { type: String, minLength: 1, maxLength: 100, required: true },
-  year: { type: String, minLength: 1, maxLength: 100, required: true },
+  objective: { type: String, minLength: 1, maxLength: 500, required: true },
+  year: { type: String, minLength: 1, maxLength: 1000, required: true },
   locationId: { type: Schema.ObjectId, ref: 'location', required: true },
   ratId: { type: Schema.ObjectId, ref: 'rat', required: true },
   completed: { type: Boolean, required: true, default: false },
